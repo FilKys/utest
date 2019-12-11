@@ -11,10 +11,32 @@ import java.util.List;
 public class TestSort {
 
     private Sort sort;
+    private int max = 10000;
+    private Integer[] list1;
+    private Boolean[] booleans;
+    private Integer[] list2;
 
     @Before
     public void initTest() {
         sort = new Sort();
+        list1 = new Integer[max];
+        list2 = new Integer[max];
+        booleans = new Boolean[max];
+        int rand;
+        for (int i = 0; i < max; i++) {
+            booleans[i] = false;
+        }
+        for (int i = 0; i < max; i++) {
+            list2[i] = i;
+            while (true) {
+                rand = (int) (Math.random() * max);
+                if (booleans[rand] == false) {
+                    booleans[rand] = true;
+                    list1[i] = rand;
+                    break;
+                }
+            }
+        }
     }
 
     @After
@@ -23,29 +45,22 @@ public class TestSort {
     }
 
     @Test
-    public void listSort() {
-        List<Integer> list1 = new ArrayList();
-        List<Integer> list2 = new ArrayList();
-        list1.add(2);
-        list1.add(6);
-        list1.add(22);
-        list1.add(1);
-        list1.add(5);
-        list1.add(0);
-        list1.add(3);
-        list1.add(8);
-        list1.add(9);
+    public void listSortBubble() {
+        Assert.assertArrayEquals(list2, sort.listSortBubble(list1));
+    }
 
-        list2.add(0);
-        list2.add(1);
-        list2.add(2);
-        list2.add(3);
-        list2.add(5);
-        list2.add(6);
-        list2.add(8);
-        list2.add(9);
-        list2.add(22);
+    @Test
+    public void listSortShaker() {
+        Assert.assertArrayEquals(list2, sort.listSortShaker(list1));
+    }
 
-        Assert.assertThat(list2, sort.listSort(list1));
+    @Test
+    public void listSortComb() {
+        Assert.assertArrayEquals(list2, sort.listSortComb(list1));
+    }
+
+    @Test
+    public void listSortInsertion() {
+        Assert.assertArrayEquals(list2, sort.listSortInsertion(list1));
     }
 }
