@@ -35,6 +35,7 @@ public class TestSort {
                     list1[i] = rand;
                     break;
                 }
+
             }
         }
     }
